@@ -1,6 +1,6 @@
 package com.forcat.shop.entity;
 
-import com.forcat.shop.repository.MemberRepository;
+import com.forcat.shop.exception.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.forcat.shop.service;
 
 import com.forcat.shop.entity.Member;
-import com.forcat.shop.repository.MemberRepository;
+import com.forcat.shop.exception.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

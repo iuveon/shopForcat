@@ -3,6 +3,7 @@ package com.forcat.shop.repository;
 import com.forcat.shop.constant.ItemSellStatus;
 import com.forcat.shop.entity.Item;
 import com.forcat.shop.entity.QItem;
+import com.forcat.shop.exception.repository.ItemRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,8 +21,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")

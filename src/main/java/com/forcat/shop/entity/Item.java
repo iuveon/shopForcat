@@ -1,6 +1,8 @@
 package com.forcat.shop.entity;
 
 import com.forcat.shop.constant.ItemSellStatus;
+import com.forcat.shop.dto.ItemFormDto;
+import com.forcat.shop.exception.OutOfStockException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -39,4 +41,24 @@ public class Item extends BaseEntity {
 
     // private LocalDateTime regTime; // 등록 시간
     // private LocalDateTime updateTime; // 수정 시간
+
+    public void updateItem(ItemFormDto itemFormDto) {
+        this.itemNm = itemFormDto.getItemNm();
+        this.price = itemFormDto.getPrice();
+        this.stockNumber = itemFormDto.getStockNumber();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
+    }
+
+    public void removeStock(int stockNumber) {
+        int restStock = this.stockNumber - stockNumber; // 상품의 재고 수량 - 주문 후 남은 재고 수량
+        if(restStock < 0) { // restStock이 0보다 작을 경우 -> 주문 수량이 상품 재고 수량보다 작을 경우
+            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량 : " + this.stockNumber + ")");
+        }
+        this.stockNumber = restStock; // 남은 재고 수량을 현재 재고 값으로 할당
+    }
+
+    public void addStock(int stockNumber) {
+        this.stockNumber += stockNumber;
+    }
 }

@@ -1,16 +1,14 @@
-package com.forcat.shop.repository;
+package com.forcat.shop.exception.repository;
 
-import com.forcat.shop.constant.ItemSellStatus;
 import com.forcat.shop.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item>, ItemRepositoryCustom {
     // 제네릭 타입 <엔티티 타입 클래스, 기본키 타입>
 
     // 쿼리 메소드 이용

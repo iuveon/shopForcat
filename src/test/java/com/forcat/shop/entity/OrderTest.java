@@ -1,10 +1,10 @@
 package com.forcat.shop.entity;
 
 import com.forcat.shop.constant.ItemSellStatus;
-import com.forcat.shop.repository.ItemRepository;
-import com.forcat.shop.repository.MemberRepository;
-import com.forcat.shop.repository.OrderItemRepository;
-import com.forcat.shop.repository.OrderRepository;
+import com.forcat.shop.exception.repository.ItemRepository;
+import com.forcat.shop.exception.repository.MemberRepository;
+import com.forcat.shop.exception.repository.OrderItemRepository;
+import com.forcat.shop.exception.repository.OrderRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
