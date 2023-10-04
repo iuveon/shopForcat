@@ -1,6 +1,7 @@
 package com.forcat.shop.service;
 
 import com.forcat.shop.constant.ItemSellStatus;
+import com.forcat.shop.constant.OrderStatus;
 import com.forcat.shop.dto.OrderDto;
 import com.forcat.shop.entity.Item;
 import com.forcat.shop.entity.Member;
@@ -74,6 +75,25 @@ public class OrderServiceTest {
         // 주문한 상품의 총 가격 계산
         assertEquals(totalPrice, order.getTotalPrice());
         // 주문한 상품의 총 가격과 DB에 저장된 상품 가격이 같은가
+    }
+
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder() {
+        Item item = saveItem();
+        Member member = saveMember();
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCount(10);
+        orderDto.setItemId(item.getId());
+        Long orderId = orderService.order(orderDto, member.getEmail());
+
+        Order order = orderRepository.findById(orderId)
+                                                .orElseThrow(EntityNotFoundException::new);
+        orderService.cancelOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+        assertEquals(100, item.getStockNumber());
     }
 
 }

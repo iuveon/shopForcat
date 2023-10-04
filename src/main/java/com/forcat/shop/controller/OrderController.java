@@ -67,4 +67,16 @@ public class OrderController {
 
         return "order/orderHist";
     }
+
+    @PostMapping("/order/{orderId}/cancel")
+    public @ResponseBody ResponseEntity cancelOrder (@PathVariable("orderId") Long orderId, Principal principal) {
+        // Principal : 현재 로그인한 사용자의 정보
+        if(!orderService.validateOrder(orderId, principal.getName())) {
+            // 로그인사용자와 주문 생성 회원이 같지 않다면 false리턴 -> 논리 부정연산자로 true 값 됨
+            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+            // 주문 취소 권한이 없으면 메세지와 함께 FORBIDDEN(403 ERROR) 리턴
+        }
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+    }
 }
