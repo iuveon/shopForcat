@@ -1,4 +1,4 @@
-package com.forcat.shop.exception.repository;
+package com.forcat.shop.repository;
 
 import com.forcat.shop.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;

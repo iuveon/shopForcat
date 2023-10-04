@@ -3,7 +3,6 @@ package com.forcat.shop.repository;
 import com.forcat.shop.constant.ItemSellStatus;
 import com.forcat.shop.entity.Item;
 import com.forcat.shop.entity.QItem;
-import com.forcat.shop.exception.repository.ItemRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;

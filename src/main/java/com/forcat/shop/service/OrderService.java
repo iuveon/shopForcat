@@ -4,10 +4,10 @@ import com.forcat.shop.dto.OrderDto;
 import com.forcat.shop.dto.OrderHistDto;
 import com.forcat.shop.dto.OrderItemDto;
 import com.forcat.shop.entity.*;
-import com.forcat.shop.exception.repository.ItemImgRepository;
-import com.forcat.shop.exception.repository.ItemRepository;
-import com.forcat.shop.exception.repository.MemberRepository;
-import com.forcat.shop.exception.repository.OrderRepository;
+import com.forcat.shop.repository.ItemImgRepository;
+import com.forcat.shop.repository.ItemRepository;
+import com.forcat.shop.repository.MemberRepository;
+import com.forcat.shop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -84,5 +84,23 @@ public class OrderService {
                                      .orElseThrow(EntityNotFoundException::new);
         order.cancelOrder();
         // 주문 취소 상태가 되면 변경 감지 기능에 의해 트랜잭션 끝날 때 update 쿼리 실행
+    }
+
+    public Long orders(List<OrderDto> orderDtoList, String email) {
+        Member member = memberRepository.findByEmail(email);
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        for(OrderDto orderDto : orderDtoList) {
+            Item item = itemRepository.findById(orderDto.getItemId())
+                    .orElseThrow(EntityNotFoundException::new);
+
+            OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+            orderItemList.add(orderItem);
+        }
+
+        Order order = Order.createOrder(member, orderItemList);
+        orderRepository.save(order);
+
+        return order.getId();
     }
 }

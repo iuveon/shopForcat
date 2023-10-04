@@ -1,7 +1,7 @@
 package com.forcat.shop.service;
 
 import com.forcat.shop.entity.ItemImg;
-import com.forcat.shop.exception.repository.ItemImgRepository;
+import com.forcat.shop.repository.ItemImgRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
