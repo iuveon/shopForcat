@@ -58,8 +58,14 @@
     <!-- 파일 전송 enctype="multipart/form-data" 사용
          모든 문자 인코딩하지 않음, post 방식일 때만 사용 가능 -->
 
-    <p class="h2">
+    <!-- <p class="h2">
       상품 등록
+    </p> -->
+    <p class="h2">
+      <span th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">상품 등록</span>
+      <span th:unless="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">상품 수정</span>
+      <!-- 상품 등록 시 무조건 이미지를 첨부해야 함
+           이미지 리스트가 비어있다면 상품 등록, 아니라면 상품 수정이 출력 되도록 함 -->
     </p>
 
     <input type="hidden" th:field="*{id}">
