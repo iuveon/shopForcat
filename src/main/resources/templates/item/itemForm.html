@@ -53,22 +53,29 @@
 </th:block>
 
 <div layout:fragment="content">
-
-  <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
+  <section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center pb-5 mb-3">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+          <!-- <h2>상품 등록</h2> -->
+          <span th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"><h2>상품 등록</h2></span>
+          <span th:unless="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"><h2>상품 수정</h2></span>
+          <!-- 상품 등록 시 무조건 이미지를 첨부해야 함
+               이미지 리스트가 비어있다면 상품 등록, 아니라면 상품 수정이 출력 되도록 함 -->
+        </div>
+      </div>
+      <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
     <!-- 파일 전송 enctype="multipart/form-data" 사용
          모든 문자 인코딩하지 않음, post 방식일 때만 사용 가능 -->
-
-    <p class="h2">
-      상품 등록
-    </p>
 
     <input type="hidden" th:field="*{id}">
 
     <div class="form-group">
       <select th:field="*{itemSellStatus}" class="custom-select">
-        <!-- 상품 판매 상태 -> 재고가 없거나 미판매 시 품절로 표시 -->
+        <!-- 상품 판매 상태 -> 재고가 없으면 SOLD_OUT 미판매 시 RESERVE 표시 -->
         <option value="SELL">판매중</option>
         <option value="SOLD_OUT">품절</option>
+        <option value="RESERVE">판매보류</option>
       </select>
     </div>
 
@@ -141,7 +148,8 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
   </form>
-
+    </div>
+  </section>
 </div>
 
 </html>

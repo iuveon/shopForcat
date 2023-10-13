@@ -61,4 +61,13 @@ public class Item extends BaseEntity {
     public void addStock(int stockNumber) {
         this.stockNumber += stockNumber;
     }
+
+    public void changeStatus() {
+        if (this.stockNumber <= 0) {
+            this.itemSellStatus = ItemSellStatus.SOLD_OUT;
+        } else {
+            this.itemSellStatus = ItemSellStatus.SELL;
+        }
+        // stockNumber(재고 수량)가 0보다 작을 경우 상품 판매 상태를 SOLD_OUT 으로 변경, 아닌 경우 SELL로 변경
+    }
 }

@@ -37,6 +37,7 @@ public class OrderItem extends BaseEntity {
         orderItem.setCount(count); // 주문할 수량
         orderItem.setOrderPrice(item.getPrice());
         item.removeStock(count); // removeStock() 메소드를 이용하여 상품 재고 수량 감소
+        item.changeStatus();
         return orderItem;
     }
 
@@ -47,6 +48,7 @@ public class OrderItem extends BaseEntity {
 
     public void cancel() {
         this.getItem().addStock(count);
+        this.getItem().changeStatus();
     } // 주문 취소 시 주문 수량만큼 상품 재고 플러스
 
 }

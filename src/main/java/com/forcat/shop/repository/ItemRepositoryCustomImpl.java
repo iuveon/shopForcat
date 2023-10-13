@@ -98,9 +98,15 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
                                             .from(itemImg)
                                             .join(itemImg.item, item)
                                             // itemImg와 img 내부 조인 -> 교집합 결과를 반환함
+                                            //.where(item.itemSellStatus.eq(ItemSellStatus.SELL)) // 상품판매여부(ItemSellStatus)가 SELL인 경우만
+                                            .where(item.itemSellStatus.ne(ItemSellStatus.RESERVE)) // 상품판매여부(ItemSellStatus)가 RESERVE 아닌 경우만
                                             .where(itemImg.repImgYn.eq("Y")) // repImgYn (대표 이미지 여부)가 Y인 경우만
                                             .where(itemNmLike(itemSearchDto.getSearchQuery()))
-                                            .orderBy(item.id.desc())
+                                            //.orderBy(item.id.desc())
+                                            .orderBy(
+                                                    item.itemSellStatus.asc(),  // ItemSellStatus 오름차순(SELL - SOLD_OUT - RESERVE)
+                                                    item.id.desc()              // item.id 내림차순
+                                            )
                                             .offset(pageable.getOffset()) // getOffset : 선택한 요소의 좌표 값 가져오기
                                             .limit(pageable.getPageSize())
                                             .fetchResults();

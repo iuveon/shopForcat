@@ -96,10 +96,10 @@ public class ItemController {
 
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
     // 배열을 통해 http://localhost/admin/items와 http://localhost/admin/페이지번호 모두 반응
-    public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page")Optional<Integer> page, Model model) {
+    public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         // @PathVariable : URL경로에서 변수 값 추출하여 사용 가능
         // Optional -> NPE 방지 wrapper 클래스
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
         // PageRequest.of(pageNumber, pageSize) -> 가져올 페이지 번호, 한 페이지 당 가져올 항목의 수
         // isPresent : Optional 객체에 값이 있다면 true 반환, 없다면 false 반환
         // URL 경로에 페이지 번호가 있다면? 해당 페이지 조회, 아니라면 0페이지 (첫 번째 페이지) 조회
