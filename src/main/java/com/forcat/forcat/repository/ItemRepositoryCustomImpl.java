@@ -92,24 +92,24 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
         QItemImg itemImg = QItemImg.itemImg;
 
         QueryResults<MainItemDto> results = queryFactory
-                                            .select(new QMainItemDto(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price))
-                                            // QMainItemDto 생성자에 값 입력 -> @QueryProjection을 사용하여 DTO 바로 조회
-                                            // 엔티티 조회 후 DTO 변환 과정 단축
-                                            .from(itemImg)
-                                            .join(itemImg.item, item)
-                                            // itemImg와 img 내부 조인 -> 교집합 결과를 반환함
-                                            //.where(item.itemSellStatus.eq(ItemSellStatus.SELL)) // 상품판매여부(ItemSellStatus)가 SELL인 경우만
-                                            .where(item.itemSellStatus.ne(ItemSellStatus.RESERVE)) // 상품판매여부(ItemSellStatus)가 RESERVE 아닌 경우만
-                                            .where(itemImg.repImgYn.eq("Y")) // repImgYn (대표 이미지 여부)가 Y인 경우만
-                                            .where(itemNmLike(itemSearchDto.getSearchQuery()))
-                                            //.orderBy(item.id.desc())
-                                            .orderBy(
-                                                    item.itemSellStatus.asc(),  // ItemSellStatus 오름차순(SELL - SOLD_OUT - RESERVE)
-                                                    item.id.desc()              // item.id 내림차순
-                                            )
-                                            .offset(pageable.getOffset()) // getOffset : 선택한 요소의 좌표 값 가져오기
-                                            .limit(pageable.getPageSize())
-                                            .fetchResults();
+                .select(new QMainItemDto(item.id, item.itemNm, item.itemDetail, itemImg.imgUrl, item.price))
+                // QMainItemDto 생성자에 값 입력 -> @QueryProjection을 사용하여 DTO 바로 조회
+                // 엔티티 조회 후 DTO 변환 과정 단축
+                .from(itemImg)
+                .join(itemImg.item, item)
+                // itemImg와 img 내부 조인 -> 교집합 결과를 반환함
+                //.where(item.itemSellStatus.eq(ItemSellStatus.SELL)) // 상품판매여부(ItemSellStatus)가 SELL인 경우만
+                .where(item.itemSellStatus.ne(ItemSellStatus.RESERVE)) // 상품판매여부(ItemSellStatus)가 RESERVE 아닌 경우만
+                .where(itemImg.repImgYn.eq("Y")) // repImgYn (대표 이미지 여부)가 Y인 경우만
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                //.orderBy(item.id.desc())
+                .orderBy(
+                        item.itemSellStatus.asc(),  // ItemSellStatus 오름차순(SELL - SOLD_OUT - RESERVE)
+                        item.id.desc()              // item.id 내림차순
+                )
+                .offset(pageable.getOffset()) // getOffset : 선택한 요소의 좌표 값 가져오기
+                .limit(pageable.getPageSize())
+                .fetchResults();
         List<MainItemDto> content = results.getResults();
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);

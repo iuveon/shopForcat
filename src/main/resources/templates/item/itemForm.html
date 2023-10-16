@@ -60,8 +60,6 @@
           <!-- <h2>상품 등록</h2> -->
           <span th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"><h2>상품 등록</h2></span>
           <span th:unless="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"><h2>상품 수정</h2></span>
-          <!-- 상품 등록 시 무조건 이미지를 첨부해야 함
-               이미지 리스트가 비어있다면 상품 등록, 아니라면 상품 수정이 출력 되도록 함 -->
         </div>
       </div>
       <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
@@ -72,7 +70,7 @@
 
     <div class="form-group">
       <select th:field="*{itemSellStatus}" class="custom-select">
-        <!-- 상품 판매 상태 -> 재고가 없으면 SOLD_OUT 미판매 시 RESERVE 표시 -->
+        <!-- 상품 판매 상태 -->
         <option value="SELL">판매중</option>
         <option value="SOLD_OUT">품절</option>
         <option value="RESERVE">판매보류</option>
