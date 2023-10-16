@@ -1,12 +1,12 @@
-package com.forcat.shop.repository;
+package com.forcat.forcat.repository;
 
-import com.forcat.shop.constant.ItemSellStatus;
-import com.forcat.shop.dto.ItemSearchDto;
-import com.forcat.shop.dto.MainItemDto;
-import com.forcat.shop.dto.QMainItemDto;
-import com.forcat.shop.entity.Item;
-import com.forcat.shop.entity.QItem;
-import com.forcat.shop.entity.QItemImg;
+import com.forcat.forcat.constant.ItemSellStatus;
+import com.forcat.forcat.dto.ItemSearchDto;
+import com.forcat.forcat.dto.MainItemDto;
+import com.forcat.forcat.dto.QMainItemDto;
+import com.forcat.forcat.entity.Item;
+import com.forcat.forcat.entity.QItem;
+import com.forcat.forcat.entity.QItemImg;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
